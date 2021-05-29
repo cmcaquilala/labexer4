@@ -1,0 +1,25 @@
+{% extends 'book_crud/main.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container-md">
+        <br><br>
+        <div class="card mx-auto" style="width: 800px;">
+            <div class="card-header fs-3">
+                Add Author Form
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <br>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Submit</button>
+                    <a href="{% url 'home' %}" class="btn btn-danger"><i class="fas fa-times"></i> Cancel</a>
+                </form>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+{% endblock content %}

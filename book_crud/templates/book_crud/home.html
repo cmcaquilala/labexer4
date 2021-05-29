@@ -1,0 +1,98 @@
+{% extends 'book_crud/main.html' %}
+{% block content %}
+
+    <div class="container">
+        <h2>Current Listing:</h2>
+        <br>
+
+        <a href="{% url 'add_book' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add a Book</a>
+
+        <br>
+
+        {% for book in books %}
+
+            <br><br>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-10">
+                            <h3>
+                                {{ book.title }} &nbsp;<small class="text-secondary">{{ book.year }}</small>
+                            </h3>
+                        </div>
+                        <div class="col-2">
+                            <div class="btn-group">
+                                <a href="{% url 'edit_book' book.id %}" class="btn btn-success"><i class="fas fa-edit"></i>
+                                    Edit
+                                </a>
+                                <a href="{% url 'delete_book' book.id %}" class="btn btn-danger"><i class="fas fa-trash"></i>
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <b>Author:</b> {{book.author.first_name}} {{book.author.last_name}} 
+                    <br><b>Year:</b> {{ book.year }}
+                    <br><b>Category:</b> {{ book.category }}
+                    <br><b>Price:</b> {{ book.price }} Php
+                    <br><b>Number of Pages:</b> {{ book.pages }}
+                    <br><b>Language:</b> {{ book.language }}
+                </div>
+            </div>
+        
+        {% endfor %}
+
+        <br>
+        <br>
+        <br>
+
+        <h2>Authors:</h2>
+        <br>
+        
+        <a href="{% url 'add_author' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add an Author</a>
+        <br>
+        {% for author in authors %}
+
+            <br><br>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-10">                            
+                            <h3>
+                                {{ author.first_name }} {{ author.last_name}}
+                            </h3>
+                        </div>
+                        <div class="col-2">
+                            <div class="btn-group">
+                                <a href="{% url 'edit_author' author.id %}" class="btn btn-success"><i class="fas fa-edit"></i>
+                                    Edit
+                                </a>
+                                <a href="{% url 'delete_author' author.id %}" class="btn btn-danger"><i class="fas fa-trash"></i>
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <b>Country of Origin:</b> {{ author.country }} 
+                    <br>
+                    <br>
+                    <b>Works:</b>
+                    {% for book in books %}
+                        {% if book.author == author %}
+                            <br>
+                            {{book.title}}
+                            <small class="text-secondary">{{book.year}}</small>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        
+        {% endfor %}
+
+    </div>
+
+{% endblock content %}
